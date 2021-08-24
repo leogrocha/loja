@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\back\\Loja.API\\Loja.API.csproj": {}
+    "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\Back\\Loja.API\\Loja.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\back\\Loja.API\\Loja.API.csproj": {
+    "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\Back\\Loja.API\\Loja.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\back\\Loja.API\\Loja.API.csproj",
+        "projectUniqueName": "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\Back\\Loja.API\\Loja.API.csproj",
         "projectName": "Loja.API",
-        "projectPath": "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\back\\Loja.API\\Loja.API.csproj",
+        "projectPath": "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\Back\\Loja.API\\Loja.API.csproj",
         "packagesPath": "C:\\Users\\leona\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\back\\Loja.API\\obj\\",
+        "outputPath": "C:\\Users\\leona\\Desktop\\8Semestre\\TSI\\loja\\Back\\Loja.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -30,6 +30,7 @@ namespace Loja.API.Models
         public Produto(string nome, int estoque, double valor){
             this.Id = null;
             this.Nome = nome;
+            this.Estoque = estoque;
             this.Valor = valor;
             this.DataCadastro = this.DataAtualizacao = DateTime.Now;
         }
