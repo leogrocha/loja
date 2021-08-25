@@ -25,6 +25,7 @@ namespace Loja.API.Controllers
                     Nome = "Léo",
                     Credito = 10.00,
                     DataCadastro = Convert.ToDateTime("23/08/2021"),
+                    DataNascimento = Convert.ToDateTime("18/03/1998"),
                     Liberado = true,
                 }; clientes.Add(cliente);
 
@@ -34,6 +35,7 @@ namespace Loja.API.Controllers
                     Nome = "Heinsenberg",
                     Credito = 15.00,
                     DataCadastro = Convert.ToDateTime("23/08/2021"),
+                    DataNascimento = Convert.ToDateTime("18/03/1998"),
                     Liberado = true,
 
                 }; clientes.Add(cliente);
@@ -44,6 +46,7 @@ namespace Loja.API.Controllers
                     Nome = "Walter White",
                     Credito = 7.00,
                     DataCadastro = Convert.ToDateTime("23/08/2021"),
+                    DataNascimento = Convert.ToDateTime("18/03/1998"),
                     Liberado = false,
                 }; clientes.Add(cliente);
 

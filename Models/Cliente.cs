@@ -29,6 +29,7 @@ namespace Loja.API.Models
              this.Id = null;
              this.Nome = nome;
              this._Credito = credito;
+             this.DataNascimento = dataNascimento;
              this.DataCadastro = dataCadastro;
         }
 
