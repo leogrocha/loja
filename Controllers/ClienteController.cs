@@ -11,7 +11,6 @@ namespace Loja.API.Controllers
     public class ClienteController : ControllerBase
     {
 
-        // Lista estática de produtos
         public static List<Cliente> clientes = new List<Cliente>();
 
 
