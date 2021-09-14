@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Loja.API.Data;
+using Loja.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,10 @@ namespace Loja.API
                     Configuration.GetConnectionString("Default")
                 )
             );
+
+            // Adicionar o módulo "Services" no escopo da API...
+            services.AddScoped<IProdutoService, ProdutoService>();
+
              
             services.AddControllers();
             services.AddSwaggerGen(c =>
