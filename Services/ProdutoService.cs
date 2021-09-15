@@ -34,7 +34,7 @@ namespace Loja.API.Services
         public IEnumerable<Produto> BuscarPorNome(string nome)
         {
             var produtos = _context.Produtos.Where(
-                p => p.Nome.Contains(nome)
+                p => p.Nome.ToLower().Contains(nome.ToLower())
             );
 
             if (produtos == null || produtos.ToList().Count == 0)
@@ -71,18 +71,18 @@ namespace Loja.API.Services
                 prod => prod.Id == id);
 
             // Verifica se retornou algum produto
-            if(produto == null)
+            if (produto == null)
                 return null;
 
             // Atualizar os dados do produto retornado do Contexto
             produto.AtualizarProduto(produtoAtualizado.Nome,
              produtoAtualizado.Estoque, produtoAtualizado.Valor);
             // Atualizar o produto no contexto do EF
-            _context.Update(produto);    
+            _context.Update(produto);
             // Salva as alterações no produto na tabela do BD
-            _context.SaveChanges();    
-            
-            return produto;        
+            _context.SaveChanges();
+
+            return produto;
         }
 
         public bool Remover(int id)
@@ -92,7 +92,7 @@ namespace Loja.API.Services
             );
 
             // verificar se existe produto
-            if(produto == null)
+            if (produto == null)
                 return false;
             // remover o produto do contexto EF
             _context.Remove(produto);
@@ -101,5 +101,36 @@ namespace Loja.API.Services
 
             return true;
         }
+
+        // método que ordena os elementos da lista de produtos
+        public IEnumerable<Produto> OrdernarProdutos(string ordenarPor, string crescenteOuDecrescente)
+        {
+            char ordem = (string.IsNullOrEmpty(crescenteOuDecrescente) ? 'C' :
+            crescenteOuDecrescente.ToUpper()[0]);
+
+            switch (ordenarPor)
+            {
+                case "nome":
+                    return (
+                        ordem == 'D' ? _context.Produtos.OrderByDescending(p => p.Nome) : 
+                        _context.Produtos.OrderBy(p => p.Nome) );
+                
+                case "estoque":
+                    return (
+                        ordem == 'D' ? _context.Produtos.OrderByDescending(p => p.Estoque) : 
+                        _context.Produtos.OrderBy(p => p.Estoque) );
+                
+                case "valor":
+                    return (
+                        ordem == 'D' ? _context.Produtos.OrderByDescending(p => p.Valor) : 
+                        _context.Produtos.OrderBy(p => p.Valor) );
+                default:
+                    return(ordem == 'D' ? _context.Produtos.OrderByDescending(p => p.DataCadastro): 
+                    _context.Produtos.OrderBy(p => p.DataCadastro));
+            }
+
+        }
+
+        
     }
 }

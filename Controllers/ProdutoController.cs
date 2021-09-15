@@ -14,41 +14,9 @@ namespace Loja.API.Controllers
         // declara um objeto da interface
         private readonly IProdutoService _produtoService;
 
-
-        // Lista estática de produtos
-        //public static List<Produto> produtos = new List<Produto>();
-
-
         public ProdutoController(IProdutoService produtoService)
         {
             _produtoService = produtoService;
-            /*if (produtos.Count <= 0)
-            {
-                Produto produto = new Produto()
-                {
-                    Id = 1,
-                    Nome = "Tênis",
-                    Estoque = 10,
-                    Valor = 159.99
-                }; produtos.Add(produto);
-
-                produto = new Produto()
-                {
-                    Id = 2,
-                    Nome = "Camiseta",
-                    Estoque = 15,
-                    Valor = 89.78
-                }; produtos.Add(produto);
-
-                 produto = new Produto()
-                {
-                    Id = 3,
-                    Nome = "Boné",
-                    Estoque = 7,
-                    Valor = 55.45
-                }; produtos.Add(produto);
-
-            } */
         }
 
         // API com o método GET
@@ -117,6 +85,16 @@ namespace Loja.API.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpGet("ordenar/{ordenarPor}")]
+        public IActionResult GetByOrder(string ordenarPor, string crescenteOuDecrescente) {
+            var produtosOrdenados = _produtoService.OrdernarProdutos(ordenarPor, crescenteOuDecrescente);
+            if(produtosOrdenados == null){
+                return NotFound();
+            }
+
+            return Ok(produtosOrdenados);
         }
 
     }

@@ -10,7 +10,7 @@ namespace Loja.API.Services {
 
         IEnumerable<Produto> BuscarPorNome(string nome);
 
-        //IEnumerable<Produto> OrdernarProdutos(string ordenaPor, string crescenteOuDecrescente);
+        IEnumerable<Produto> OrdernarProdutos(string ordenarPor, string crescenteOuDecrescente);
 
         Produto Adicionar(Produto novoProduto);
 
