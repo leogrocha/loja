@@ -3,6 +3,7 @@ using System.Linq;
 using Loja.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Loja.API.Services;
 
 namespace Loja.API.Controllers
 {
@@ -11,100 +12,97 @@ namespace Loja.API.Controllers
     public class ClienteController : ControllerBase
     {
 
-        public static List<Cliente> clientes = new List<Cliente>();
+        private readonly IClienteService _clienteService;
 
 
-        public ClienteController()
+        public ClienteController(IClienteService clienteService)
         {
-            if (clientes.Count <= 0)
-            {
-                Cliente cliente = new Cliente()
-                {
-                    Id = 1,
-                    Nome = "Léo",
-                    Credito = 10.00,
-                    DataCadastro = Convert.ToDateTime("23/08/2021"),
-                    DataNascimento = Convert.ToDateTime("18/03/1998"),
-                    Liberado = true,
-                }; clientes.Add(cliente);
-
-                cliente = new Cliente()
-                {
-                    Id = 2,
-                    Nome = "Heinsenberg",
-                    Credito = 15.00,
-                    DataCadastro = Convert.ToDateTime("23/08/2021"),
-                    DataNascimento = Convert.ToDateTime("18/03/1998"),
-                    Liberado = true,
-
-                }; clientes.Add(cliente);
-
-                cliente = new Cliente()
-                {
-                    Id = 3,
-                    Nome = "Walter White",
-                    Credito = 7.00,
-                    DataCadastro = Convert.ToDateTime("23/08/2021"),
-                    DataNascimento = Convert.ToDateTime("18/03/1998"),
-                    Liberado = false,
-                }; clientes.Add(cliente);
-
-            }
+            _clienteService = clienteService;
         }
 
         // API com o método GET
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(clientes);
+            var clientes = _clienteService.Buscar();
+            if(clientes == null)
+                return NotFound();
+            else 
+                return Ok(clientes);    
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var clienteSelecionado = clientes.Where(
-                cli => cli.Id == id);
-            return Ok(clienteSelecionado);
+            var clienteSelecionado = _clienteService.BuscarPorId(id);
+
+            if(clienteSelecionado == null)
+                return NotFound();
+            else 
+                return Ok(clienteSelecionado);    
         }
 
        [HttpGet("Cliente/{credito}")]
-        public IActionResult Get(double credito)
+        public IActionResult GetByCreditoMaiorOuIgual(double credito)
         {
-            var clienteSelecionado = clientes.Where(
-                cliente => cliente.Credito >= credito);
-            return Ok(clienteSelecionado);
+            var creditoMaiorOuIgual = _clienteService.GetByCreditoMaiorOuIgual(credito);
+
+            if(creditoMaiorOuIgual == null)
+                return NotFound();
+            else 
+                return Ok(creditoMaiorOuIgual);
         }
-
-
 
         [HttpGet("Cliente/Liberado")]
         public IActionResult GetClientesLiberados()
         {
-            var clienteLiberado = clientes.Where(
-                cli => cli.Liberado == true);
-            return Ok(clienteLiberado);
+            var clienteLiberado = _clienteService.GetClientesLiberados();
+
+            if(clienteLiberado == null)
+                return NotFound();
+            else     
+                return Ok(clienteLiberado);
+        }
+
+        [HttpGet("Cliente/Bloqueado")]
+        public IActionResult GetClientesBloqueados()
+        {
+            var clienteBloqueado = _clienteService.GetClientesBloqueados();
+
+            if(clienteBloqueado == null)
+                return NotFound();
+            else     
+                return Ok(clienteBloqueado);
         }
         
 
         [HttpPost]
         public IActionResult NovoCliente([FromBody] Cliente novoCliente)
         {
-            clientes.Add(novoCliente);
+            Cliente clienteAdicionado = _clienteService.Adicionar(novoCliente);
+
             return Created("", novoCliente);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var clienteSelecionado = (Cliente)clientes.FirstOrDefault(c => c.Id == id);
+            bool remocaoOk = _clienteService.Remover(id);
 
-            if (clienteSelecionado != null)
-            {
-                clientes.Remove(clienteSelecionado);
-                return NoContent();
+            if(remocaoOk == false)
+                return NotFound();
+
+            return NoContent();    
+        }
+
+        [HttpGet("ordenar/{ordenarPor}")]
+        public IActionResult GetByOrder(string ordenarPor, string crescenteOuDecrescente) {
+            var clientesOrdenados = _clienteService.OrdernarClientes(ordenarPor, crescenteOuDecrescente);
+            if(clientesOrdenados == null){
+                return NotFound();
             }
 
-            return NotFound();
+            return Ok(clientesOrdenados);
         }
 
     }

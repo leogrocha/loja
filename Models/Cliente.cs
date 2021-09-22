@@ -30,7 +30,6 @@ namespace Loja.API.Models
              this.Nome = nome;
              this._Credito = credito;
              this.DataNascimento = dataNascimento;
-             this.DataCadastro = dataCadastro;
         }
 
         public void AtualizarCliente(string nome, double credito, DateTime dataNascimento, Boolean liberado) {
@@ -41,7 +40,7 @@ namespace Loja.API.Models
         }
 
         public void BloquearCliente() {
-
+            
         }
 
         public void LiberarCliente() {

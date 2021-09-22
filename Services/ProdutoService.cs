@@ -87,7 +87,7 @@ namespace Loja.API.Services
 
         public bool Remover(int id)
         {
-            var produto = _context.Produtos.FirstOrDefault(
+            var produto = _context.Marcas.FirstOrDefault(
                 p => p.Id == id
             );
 

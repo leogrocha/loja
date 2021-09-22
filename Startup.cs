@@ -38,6 +38,8 @@ namespace Loja.API
 
             // Adicionar o módulo "Services" no escopo da API...
             services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IMarcasService, MarcasService>();
 
              
             services.AddControllers();
